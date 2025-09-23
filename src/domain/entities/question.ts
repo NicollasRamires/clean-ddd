@@ -1,17 +1,17 @@
-import { UniqueEntityID } from "@/core/entities/unique-entity-id"
-import { Slug } from "./value-objects/slug"
-import { Entity } from "@/core/entities/entity"
-import { Optional } from "@/core/types/optional"
-import dayjs from "dayjs"
+import { UniqueEntityID } from '@/core/entities/unique-entity-id'
+import { Slug } from './value-objects/slug'
+import { Entity } from '@/core/entities/entity'
+import { Optional } from '@/core/types/optional'
+import dayjs from 'dayjs'
 
 interface QuestionProps {
-  authorId: UniqueEntityID,
+  authorId: UniqueEntityID
   bestAnswerId?: UniqueEntityID
-  title: string,
-  content: string,
-  slug: Slug,
-  createdAt: Date,
-  updateAt?: Date,
+  title: string
+  content: string
+  slug: Slug
+  createdAt: Date
+  updateAt?: Date
 }
 
 export class Question extends Entity<QuestionProps> {
@@ -57,13 +57,16 @@ export class Question extends Entity<QuestionProps> {
 
   static create(
     props: Optional<QuestionProps, 'createdAt' | 'slug'>,
-    id?: UniqueEntityID
+    id?: UniqueEntityID,
   ) {
-    const question = new Question({
-      ...props,
-      slug: props.slug ?? Slug.createFromText(props.title),
-      createdAt: new Date(),
-    }, id)
+    const question = new Question(
+      {
+        ...props,
+        slug: props.slug ?? Slug.createFromText(props.title),
+        createdAt: new Date(),
+      },
+      id,
+    )
 
     return question
   }
